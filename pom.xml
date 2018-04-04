@@ -95,4 +95,20 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>unific-snapshots</id>
+            <name>unific-snapshots</name>
+            <url>https://nexus.revenueconduit.com/repository/unific-snapshots/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>unific-releases</id>
+            <name>unific-releases</name>
+            <url>https://nexus.revenueconduit.com/repository/unific-releases/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </repository>
+    </distributionManagement>
+
 </project>
