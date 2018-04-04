@@ -127,10 +127,10 @@ produces the following representation:
 QuickStart
 -----
 
-To use, [download the zip](https://github.com/shazam/shazamcrest/archive/master.zip) or add the following to your project's pom.xml:
- 
+To use add the following to your project's pom.xml:
+
     <dependency>
-        <groupId>com.shazam</groupId>
+        <groupId>com.unific</groupId>
         <artifactId>shazamcrest</artifactId>
-        <version>0.11</version>
+        <version>1.0.0</version>
     </dependency>
