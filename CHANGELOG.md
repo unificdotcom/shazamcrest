@@ -1,6 +1,11 @@
 Changelog
 ===========
 
+Version 1.0.0 - 2018/0404
+-----
+
+Update to Junit 5
+
 Version 0.11 - 2015/03/04
 -----
 
