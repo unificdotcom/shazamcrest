@@ -39,7 +39,9 @@ public class BeanFinder {
 					} else {
 						return findBeanAt(fields.subList(1, fields.size()), field.get(object));
 					}
-				} catch (IllegalAccessException e) {}
+				} catch (IllegalAccessException ignore) {
+					// ignore
+				}
 			}
 		}
 		

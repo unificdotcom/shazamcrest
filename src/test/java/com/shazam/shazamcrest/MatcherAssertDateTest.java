@@ -1,7 +1,7 @@
 package com.shazam.shazamcrest;
 
-import org.junit.ComparisonFailure;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +12,8 @@ import static com.shazam.shazamcrest.matcher.Matchers.sameBeanAs;
 import static com.shazam.shazamcrest.matchers.ComparisonFailureMatchers.checkThat;
 import static com.shazam.shazamcrest.matchers.ComparisonFailureMatchers.message;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class MatcherAssertDateTest {
 
@@ -26,20 +27,20 @@ public class MatcherAssertDateTest {
         assertThat(one, sameBeanAs(two));
     }
 
-    @Test(expected = ComparisonFailure.class)
+    @Test
     public void throwsComparisonFailureWhenDatesDifferByMillisecondsOnly() throws ParseException {
         Date one = DATE_FORMAT.parse("01/01/2016 10:00:00.300");
         Date two = DATE_FORMAT.parse("01/01/2016 10:00:00.500");
 
-        assertThat(one, sameBeanAs(two));
+        assertThrows(AssertionFailedError.class, () -> assertThat(one, sameBeanAs(two)));
     }
 
-    @Test(expected = ComparisonFailure.class)
+    @Test
     public void throwsComparisonFailureWhenDatesDifferMinutesOnly() throws ParseException {
         Date one = DATE_FORMAT.parse("01/01/2016 10:00:00.000");
         Date two = DATE_FORMAT.parse("01/01/2016 10:00:01.000");
 
-        assertThat(one, sameBeanAs(two));
+        assertThrows(AssertionFailedError.class, () -> assertThat(one, sameBeanAs(two)));
     }
 
     @SuppressWarnings("unchecked")
@@ -49,8 +50,9 @@ public class MatcherAssertDateTest {
         Date two = DATE_FORMAT.parse("11/10/966 00:00:00.000");
         try {
             assertThat(one, sameBeanAs(two));
-        } catch (ComparisonFailure e) {
-            checkThat(e, message(containsString("[Oct 11, 0966 12:00:00.000 A]M")), message(containsString("[Jan 2, 2016 11:59:59.999 P]M")));
+        } catch (AssertionFailedError e) {
+            checkThat(e, message(containsString("[Oct 11, 0966 12:00:00.000 A]M")), message(containsString("[Jan 2, " +
+                    "2016 11:59:59.999 P]M")));
             return;
         }
         fail("Exception expected but not thrown");

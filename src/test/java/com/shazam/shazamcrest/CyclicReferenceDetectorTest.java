@@ -10,8 +10,7 @@
 package com.shazam.shazamcrest;
 
 import com.shazam.shazamcrest.model.cyclic.*;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,8 +19,8 @@ import java.util.Set;
 
 import static com.shazam.shazamcrest.CyclicReferenceDetector.getClassesWithCircularReferences;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
-import static org.junit.Assert.assertThat;
 
 /**
  * Tests which verify the {@link com.shazam.shazamcrest.CyclicReferenceDetector} returns the classes which participate in a cyclic reference.
