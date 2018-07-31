@@ -15,6 +15,7 @@ package com.shazam.shazamcrest.matcher;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.shazam.shazamcrest.ComparisonDescription;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Description;
 import org.hamcrest.DiagnosingMatcher;
 import org.hamcrest.Matcher;
@@ -44,7 +45,14 @@ class DiagnosingCustomisableMatcher<T> extends DiagnosingMatcher<T> implements C
     protected final T expected;
 
     public DiagnosingCustomisableMatcher(T expected) {
+        this(expected, Matchers.Nanos.IGNORE);
+    }
+
+    public DiagnosingCustomisableMatcher(T expected, Matchers.Nanos nanos) {
         this.expected = expected;
+        if (Matchers.Nanos.IGNORE == nanos) {
+            patternsToIgnore.add(CoreMatchers.endsWith("nanos"));
+        }
     }
 
     @Override
@@ -124,7 +132,7 @@ class DiagnosingCustomisableMatcher<T> extends DiagnosingMatcher<T> implements C
     }
 
     protected boolean appendMismatchDescription(Description mismatchDescription, String expectedJson, String
-			actualJson, String message) {
+            actualJson, String message) {
         if (mismatchDescription instanceof ComparisonDescription) {
             ComparisonDescription shazamMismatchDescription = (ComparisonDescription) mismatchDescription;
             shazamMismatchDescription.setComparisonFailure(true);

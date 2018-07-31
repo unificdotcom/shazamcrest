@@ -28,15 +28,23 @@ public class Matchers {
      * @return an {@link CustomisableMatcher} instance
      */
     public static <T> CustomisableMatcher<T> sameBeanAs(final T expected) {
+        return sameBeanAs(expected, Nanos.IGNORE);
+    }
+
+    public static <T> CustomisableMatcher<T> sameBeanAs(final T expected, Nanos nanos) {
         if (expected == null) {
             return new NullMatcher<>(null);
         }
 
         if (isPrimitiveOrWrapper(expected.getClass()) || expected.getClass() == String.class || expected.getClass()
-				.isEnum()) {
+                .isEnum()) {
             return new IsEqualMatcher<>(expected);
         }
 
-        return new DiagnosingCustomisableMatcher<>(expected);
+        return new DiagnosingCustomisableMatcher<>(expected, nanos);
+    }
+
+    public enum Nanos {
+        IGNORE, INCLUDE;
     }
 }
