@@ -10,9 +10,7 @@ jobs:
       - checkout
       - restore_cache:
           key: maven-{{ checksum "pom.xml" }}
-
       - run: command: mvn site deploy -s settings.xml --batch-mode --update-snapshots
-
       - save_cache:
           key: maven-{{ checksum "pom.xml" }}
           paths:
